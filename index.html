@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VESPER H1</title>
+<meta name="description" content="VESPER H1 — headphone nirkabel over-ear dengan driver berilium 40 mm, ANC adaptif −38 dB, dan baterai 60 jam.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="glow" id="glow" aria-hidden="true"></div>
+<div class="wordmark" aria-hidden="true">H1</div>
+<canvas id="stage" aria-hidden="true"></canvas>
+
+<div class="callouts" id="callouts" aria-hidden="true">
+  <div class="callout" data-anchor="band"><i></i><span>Headband baja pegas · <b>254 g</b></span></div>
+  <div class="callout" data-anchor="cap"><i></i><span>Cangkang aluminium · <b>8 mik</b></span></div>
+  <div class="callout" data-anchor="driver"><i></i><span>Driver berilium · <b>Ø 40 mm</b></span></div>
+  <div class="callout" data-anchor="cushion"><i></i><span>Memory foam · <b>18 mm</b></span></div>
+</div>
+
+<header class="nav">
+  <a class="brand" href="#top">VESPER</a>
+  <nav class="nav-links" aria-label="Bagian halaman">
+    <a href="#suara">Suara</a>
+    <a href="#anc">ANC</a>
+    <a href="#nyaman">Kenyamanan</a>
+    <a href="#warna">Warna</a>
+    <a href="#spesifikasi">Spesifikasi</a>
+  </nav>
+  <a class="btn btn-small" href="#beli">Beli</a>
+</header>
+
+<main id="top">
+
+  <section class="panel" data-state="hero">
+    <div class="copy">
+      <p class="eyebrow">Over-ear nirkabel · ANC adaptif</p>
+      <h1>Sunyi di luar.<br>Detail di dalam.</h1>
+      <p class="lede">VESPER H1 memadukan driver berilium 40&nbsp;mm, peredam bising adaptif, dan baterai 60&nbsp;jam dalam bobot 254&nbsp;gram.</p>
+      <div class="actions">
+        <a class="btn" href="#beli">Beli · Rp 5.499.000</a>
+        <a class="btn btn-ghost" href="#warna">Lihat warnanya</a>
+      </div>
+      <dl class="stats">
+        <div><dt>Baterai</dt><dd>60<small>jam</small></dd></div>
+        <div><dt>Redaman</dt><dd>−38<small>dB</small></dd></div>
+        <div><dt>Bobot</dt><dd>254<small>g</small></dd></div>
+      </dl>
+    </div>
+    <p class="scroll-hint" aria-hidden="true">Gulir untuk membongkar</p>
+  </section>
+
+  <section class="panel panel--right" id="suara" data-state="sound">
+    <div class="copy">
+      <p class="eyebrow">Akustik · Ø 40 mm</p>
+      <h2>Driver berilium yang tidak pernah ragu.</h2>
+      <p>Diafragma berilium kaku dan ringan, jadi bergerak tanpa distorsi sampai 40&nbsp;kHz. Bass tetap rapat, vokal tetap di depan, dan simbal tidak pecah di volume tinggi.</p>
+      <ul class="facts">
+        <li><span>Respons frekuensi</span><b>4 Hz – 40 kHz</b></li>
+        <li><span>THD @ 1 kHz</span><b>&lt; 0,1 %</b></li>
+        <li><span>LDAC</span><b>990 kbps</b></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="panel" id="anc" data-state="anc">
+    <div class="copy">
+      <p class="eyebrow">Peredam bising · −38 dB</p>
+      <h2>Delapan mikrofon. Satu ruang tenang.</h2>
+      <p>Enam mikrofon membaca bising kabin, jalan, dan angin 48.000 kali per detik. Chip V2 membalik gelombangnya sebelum sampai ke telinga.</p>
+      <p class="note">Mode Transparansi mengembalikan suara sekitar dengan satu ketukan di cangkang kanan.</p>
+    </div>
+  </section>
+
+  <section class="panel panel--right" id="nyaman" data-state="comfort">
+    <div class="copy">
+      <p class="eyebrow">Kenyamanan · 4,2 N</p>
+      <h2>Dipakai seharian, lupa sedang dipakai.</h2>
+      <p>Bantalan memory foam 18&nbsp;mm berbalut kulit protein, headband baja pegas berlapis kain rajut, dan tekanan jepit 4,2&nbsp;N yang tersebar rata di sekitar telinga.</p>
+      <ul class="facts">
+        <li><span>Bantalan</span><b>Bisa dilepas</b></li>
+        <li><span>Engsel cangkang</span><b>Putar 90°</b></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="panel panel--center" id="warna" data-state="colors">
+    <div class="copy">
+      <p class="eyebrow">Warna</p>
+      <h2>Empat warna, satu karakter.</h2>
+      <div class="swatches" role="group" aria-label="Pilih warna">
+        <button type="button" id="sw-grafit" class="swatch" data-color="grafit" aria-pressed="true" style="--c1:#2a2d33;--c2:#ff6a3d"><span class="sr">Grafit</span></button>
+        <button type="button" id="sw-gletser" class="swatch" data-color="gletser" aria-pressed="false" style="--c1:#e4e8ec;--c2:#4b72ff"><span class="sr">Gletser</span></button>
+        <button type="button" id="sw-bara" class="swatch" data-color="bara" aria-pressed="false" style="--c1:#6e1c22;--c2:#f2b874"><span class="sr">Bara</span></button>
+        <button type="button" id="sw-lumut" class="swatch" data-color="lumut" aria-pressed="false" style="--c1:#5f6b58;--c2:#e8e1c8"><span class="sr">Lumut</span></button>
+      </div>
+      <p class="color-name" id="color-name" aria-live="polite"><b>Grafit</b> — aluminium anodized gelap, aksen jingga</p>
+    </div>
+  </section>
+
+  <section class="panel panel--specs" id="spesifikasi" data-state="specs">
+    <div class="copy copy--wide">
+      <p class="eyebrow">Spesifikasi</p>
+      <h2>Angka di balik sunyi.</h2>
+      <dl class="specs">
+        <div><dt>Driver</dt><dd>Dinamis 40 mm, diafragma berilium</dd></div>
+        <div><dt>Respons frekuensi</dt><dd>4 Hz – 40 kHz</dd></div>
+        <div><dt>Impedansi</dt><dd>32 Ω</dd></div>
+        <div><dt>Sensitivitas</dt><dd>102 dB SPL/mW</dd></div>
+        <div><dt>Peredam bising</dt><dd>Hibrida adaptif, hingga −38 dB</dd></div>
+        <div><dt>Mikrofon</dt><dd>8 (6 ANC, 2 panggilan)</dd></div>
+        <div><dt>Baterai</dt><dd>60 jam ANC mati · 42 jam ANC aktif</dd></div>
+        <div><dt>Isi cepat</dt><dd>10 menit = 6 jam putar</dd></div>
+        <div><dt>Konektivitas</dt><dd>Bluetooth 5.4, multipoint 2 perangkat</dd></div>
+        <div><dt>Codec</dt><dd>LDAC, aptX Adaptive, AAC, SBC</dd></div>
+        <div><dt>Port</dt><dd>USB-C (audio digital), 3,5 mm</dd></div>
+        <div><dt>Bobot</dt><dd>254 g</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="panel panel--center panel--buy" id="beli" data-state="buy">
+    <div class="copy">
+      <p class="eyebrow">Tersedia sekarang</p>
+      <h2>VESPER H1</h2>
+      <p class="price">Rp 5.499.000</p>
+      <p>Gratis ongkir · Garansi resmi 2 tahun · Kotak travel dan kabel USB-C termasuk</p>
+      <div class="actions">
+        <button type="button" class="btn" id="buy-btn">Masukkan ke keranjang</button>
+      </div>
+      <p class="note" id="buy-status" aria-live="polite"></p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <p>VESPER adalah merek fiktif yang dibuat untuk demo situs produk 3D. Model headphone dibangun langsung dengan Three.js.</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

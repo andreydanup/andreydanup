@@ -1,4 +1,11 @@
-# VESPER H1 — situs produk 3D
+# Situs 3D interaktif
+
+Repo ini berisi dua situs:
+
+- **VESPER H1** (root): landing page produk headphone fiktif, dijelaskan di bawah.
+- **[`apple-music/`](apple-music/)**: konsep tidak resmi bergaya Apple Music dengan Cover Flow 3D, Spatial Audio interaktif, dan spektrogram lossless.
+
+## VESPER H1: situs produk 3D
 
 Landing page produk headphone fiktif dengan model 3D yang dibangun langsung di Three.js (tanpa file model eksternal) dan dianimasikan mengikuti scroll.
 

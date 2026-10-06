@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Apple Music Konsep 3D</title>
+<meta name="description" content="Konsep situs musik tidak resmi bergaya Apple Music dengan Cover Flow 3D, Spatial Audio interaktif, dan visualisasi lossless. Tidak berafiliasi dengan Apple Inc.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="nav">
+  <a class="brand" href="#top" aria-label="Music, kembali ke atas">
+    <svg class="brand-note" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18.5a2.5 2.5 0 1 1-2.5-2.5c.5 0 1 .1 1.5.4V5.6l11-2.1v12.9a2.5 2.5 0 1 1-2.5-2.5c.5 0 1 .1 1.5.4V7.3l-9 1.8v9.4Z"/></svg>
+    <span>Music</span>
+    <span class="tag">Konsep</span>
+  </a>
+  <nav class="nav-links" aria-label="Bagian halaman">
+    <a href="#top">Jelajahi</a>
+    <a href="#spatial">Spatial Audio</a>
+    <a href="#lossless">Lossless</a>
+    <a href="#lirik">Lirik</a>
+  </nav>
+  <a class="btn btn-accent btn-small" href="https://music.apple.com/" target="_blank" rel="noopener">Coba gratis</a>
+</header>
+
+<main>
+
+  <!-- HERO / COVER FLOW -->
+  <section class="hero" id="top">
+    <div class="hero-bg" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="hero-head">
+      <p class="eyebrow">Konsep interaktif</p>
+      <h1>Lebih dari 100 juta lagu.<br><span class="grad">Satu sentuhan.</span></h1>
+      <p class="lede">Geser sampul album, ketuk untuk memutar. Semua musik di halaman ini disintesis langsung di browsermu.</p>
+    </div>
+    <div class="flow">
+      <canvas id="flow" tabindex="0" aria-label="Rak album 3D. Geser atau pakai tombol panah untuk memilih, Enter untuk memutar."></canvas>
+    </div>
+    <div class="flow-info">
+      <button type="button" class="icon-btn" id="flow-prev" aria-label="Album sebelumnya">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 8 12l7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="flow-meta">
+        <p class="flow-genre" id="flow-genre">Synthwave</p>
+        <h2 id="flow-title">Kota Neon</h2>
+        <p class="flow-artist" id="flow-artist">Arunika</p>
+      </div>
+      <button type="button" class="icon-btn" id="flow-next" aria-label="Album berikutnya">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <div class="flow-actions">
+      <button type="button" class="btn btn-accent" id="flow-play">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path class="i-play" d="M8 5.5v13l10.5-6.5z"/><path class="i-pause" d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>
+        <span>Putar</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- SPATIAL AUDIO -->
+  <section class="split" id="spatial">
+    <div class="copy">
+      <p class="eyebrow">Spatial Audio</p>
+      <h2>Musik yang <span class="grad">mengelilingimu.</span></h2>
+      <p>Setiap instrumen punya tempatnya sendiri di sekitar kepala. Seret bola cahaya ke mana saja, dan suaranya ikut berpindah: ke kiri, ke kanan, ke depan, bahkan ke belakangmu.</p>
+      <p class="note">Pakai headphone untuk merasakan efek HRTF sepenuhnya.</p>
+      <div class="segmented" role="group" aria-label="Mode audio">
+        <button type="button" id="mode-spatial" aria-pressed="true">Spatial Audio</button>
+        <button type="button" id="mode-stereo" aria-pressed="false">Stereo</button>
+      </div>
+      <label class="switch" for="orbit-toggle">
+        <input type="checkbox" id="orbit-toggle">
+        <span class="switch-track" aria-hidden="true"></span>
+        Putar instrumen mengelilingi kepala
+      </label>
+    </div>
+    <div class="stage" id="spatial-stage">
+      <canvas id="spatial-canvas" aria-label="Panggung Spatial Audio. Seret instrumen untuk memindahkan suaranya."></canvas>
+      <div class="orb-labels" id="orb-labels" aria-hidden="true"></div>
+      <button type="button" class="stage-cta" id="spatial-play">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg>
+        Putar musik untuk mencoba
+      </button>
+    </div>
+  </section>
+
+  <!-- LOSSLESS -->
+  <section class="lossless" id="lossless">
+    <canvas id="lossless-canvas" aria-hidden="true"></canvas>
+    <div class="lossless-copy">
+      <p class="eyebrow">Lossless Audio</p>
+      <h2>Setiap detail, <span class="grad">utuh.</span></h2>
+      <p>Spektrum di belakang ini dibaca langsung dari lagu yang sedang diputar, 60 kali per detik. Tidak ada frekuensi yang dibuang.</p>
+      <dl class="stats">
+        <div><dt>Resolusi</dt><dd>24-bit / 192 kHz</dd></div>
+        <div><dt>Format</dt><dd>ALAC</dd></div>
+        <div><dt>Biaya tambahan</dt><dd>Rp 0</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- LYRICS -->
+  <section class="lyrics" id="lirik">
+    <div class="lyrics-bg" aria-hidden="true"></div>
+    <div class="copy">
+      <p class="eyebrow">Lirik real-time</p>
+      <h2>Ikut bernyanyi, baris demi baris.</h2>
+      <p>Lirik bergerak tepat mengikuti ketukan lagu yang sedang diputar.</p>
+      <p class="now" id="lyrics-now">Kota Neon · Arunika</p>
+    </div>
+    <div class="lyric-lines" id="lyric-lines" aria-live="off"></div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <h2>Dengarkan semuanya.<br><span class="grad">Di mana saja.</span></h2>
+    <p>iPhone, iPad, Mac, Apple Watch, Apple TV, Android, dan web.</p>
+    <a class="btn btn-accent" href="https://music.apple.com/" target="_blank" rel="noopener">Mulai dengarkan</a>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <p>Konsep desain tidak resmi untuk portofolio. Tidak berafiliasi dengan atau didukung oleh Apple Inc. Apple Music adalah merek dagang Apple Inc. Semua album, artis, lirik, dan musik di halaman ini fiktif dan dibuat secara prosedural.</p>
+</footer>
+
+<!-- MINI PLAYER -->
+<div class="player" role="region" aria-label="Pemutar musik">
+  <img class="player-art" id="player-art" alt="">
+  <div class="player-meta">
+    <p class="player-title" id="player-title">Kota Neon</p>
+    <p class="player-artist" id="player-artist">Arunika</p>
+  </div>
+  <div class="player-controls">
+    <button type="button" class="icon-btn" id="pl-prev" aria-label="Lagu sebelumnya">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg>
+    </button>
+    <button type="button" class="icon-btn icon-btn--main" id="pl-play" aria-label="Putar">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path class="i-play" d="M8 5.5v13l10.5-6.5z"/><path class="i-pause" d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>
+    </button>
+    <button type="button" class="icon-btn" id="pl-next" aria-label="Lagu berikutnya">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg>
+    </button>
+  </div>
+  <div class="player-progress">
+    <span id="pl-time">0:00</span>
+    <div class="bar"><i id="pl-bar"></i></div>
+    <span id="pl-total">0:19</span>
+  </div>
+  <label class="player-vol" for="pl-vol">
+    <span class="sr">Volume</span>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    <input type="range" id="pl-vol" min="0" max="1" step="0.01" value="0.8">
+  </label>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="music.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

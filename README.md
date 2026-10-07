@@ -4,6 +4,7 @@ Repo ini berisi dua situs:
 
 - **VESPER H1** (root): landing page produk headphone fiktif, dijelaskan di bawah.
 - **[`apple-music/`](apple-music/)**: konsep tidak resmi bergaya Apple Music dengan Cover Flow 3D, Spatial Audio interaktif, dan spektrogram lossless.
+- **[`cafe/`](cafe/)**: Moth & Moka, a fictional late-night café with a spinnable 3D latte, a layer-by-layer drink builder and a roast lab (English).
 
 ## VESPER H1: situs produk 3D
 

@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Moth &amp; Moka</title>
+<meta name="description" content="Moth & Moka is a late-night coffee bar. Spin a 3D latte, build your own drink layer by layer, and roast a bean from green to second crack.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Hanken+Grotesk:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="nav">
+  <a class="brand" href="#top">Moth <em>&amp;</em> Moka</a>
+  <nav class="nav-links" aria-label="Page sections">
+    <a href="#build">Build a drink</a>
+    <a href="#roast">Roast lab</a>
+    <a href="#menu">Menu</a>
+    <a href="#visit">Visit</a>
+  </nav>
+  <a class="order-pill" href="#build" id="order-pill">Order <span id="order-count">0</span></a>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="hero-copy">
+      <p class="eyebrow"><span class="dot" aria-hidden="true"></span>Open tonight until 1 AM</p>
+      <h1>Coffee for the <em>night owls.</em></h1>
+      <p class="lede">A small coffee bar that keeps the lamps on after dark. Single-origin espresso, slow pour-overs, and a quiet table until 1 in the morning.</p>
+      <div class="actions">
+        <a class="btn" href="#build">Build your drink</a>
+        <a class="btn btn-ghost" href="#menu">See the menu</a>
+      </div>
+      <dl class="facts">
+        <div><dt>Espresso</dt><dd>18 g in · 36 g out</dd></div>
+        <div><dt>Roasted</dt><dd>Every Tuesday</dd></div>
+        <div><dt>Last order</dt><dd>12:40 AM</dd></div>
+      </dl>
+    </div>
+    <div class="hero-stage">
+      <canvas id="cup-canvas" tabindex="0" aria-label="3D latte. Drag to spin it, press Enter or tap to pour new latte art."></canvas>
+      <p class="hint" aria-hidden="true">Drag to spin · Tap to pour new art</p>
+      <p class="art-name" id="art-name" aria-live="polite">Rosetta</p>
+    </div>
+  </section>
+
+  <!-- BUILDER -->
+  <section class="builder" id="build">
+    <div class="section-head">
+      <p class="eyebrow">Build a drink</p>
+      <h2>Pull the shot. Pour the milk. Watch it stack.</h2>
+      <p>Start from a classic or make your own. The glass holds 360 ml, the same 12 oz tumbler we serve in.</p>
+    </div>
+
+    <div class="builder-grid">
+      <div class="glass-stage">
+        <canvas id="glass-canvas" aria-label="3D glass showing the layers of your drink. Drag to turn it."></canvas>
+        <div class="fill-gauge" aria-hidden="true"><i id="fill-bar"></i></div>
+        <button type="button" class="stir-btn" id="stir-btn" aria-pressed="false">Stir it</button>
+      </div>
+
+      <div class="controls">
+        <div class="presets" role="group" aria-label="Classic drinks">
+          <button type="button" class="chip" data-preset="espresso">Espresso</button>
+          <button type="button" class="chip" data-preset="cortado">Cortado</button>
+          <button type="button" class="chip" data-preset="flatwhite">Flat white</button>
+          <button type="button" class="chip" data-preset="latte">Latte</button>
+          <button type="button" class="chip" data-preset="cappuccino">Cappuccino</button>
+          <button type="button" class="chip" data-preset="americano">Americano</button>
+          <button type="button" class="chip" data-preset="icedlatte">Iced latte</button>
+        </div>
+
+        <div class="ctrl">
+          <span class="ctrl-label" id="shots-label">Espresso shots</span>
+          <div class="stepper" role="group" aria-labelledby="shots-label">
+            <button type="button" id="shots-minus" aria-label="One shot fewer">−</button>
+            <output id="shots-out" aria-live="polite">2</output>
+            <button type="button" id="shots-plus" aria-label="One shot more">+</button>
+          </div>
+          <span class="ctrl-unit" id="shots-ml">60 ml</span>
+        </div>
+
+        <div class="ctrl">
+          <label class="ctrl-label" for="milk">Milk</label>
+          <input type="range" id="milk" min="0" max="240" step="10" value="120">
+          <span class="ctrl-unit" id="milk-out">120 ml</span>
+        </div>
+        <div class="ctrl ctrl--sub">
+          <span class="ctrl-label">Milk type</span>
+          <div class="seg" role="group" aria-label="Milk type">
+            <button type="button" data-milk="whole" aria-pressed="true">Whole</button>
+            <button type="button" data-milk="oat" aria-pressed="false">Oat</button>
+          </div>
+          <span class="ctrl-unit"></span>
+        </div>
+
+        <div class="ctrl">
+          <label class="ctrl-label" for="foam">Foam</label>
+          <input type="range" id="foam" min="0" max="80" step="10" value="10">
+          <span class="ctrl-unit" id="foam-out">10 ml</span>
+        </div>
+
+        <div class="ctrl">
+          <label class="ctrl-label" for="water">Hot water</label>
+          <input type="range" id="water" min="0" max="240" step="10" value="0">
+          <span class="ctrl-unit" id="water-out">0 ml</span>
+        </div>
+
+        <div class="ctrl ctrl--wrap">
+          <span class="ctrl-label">Syrup</span>
+          <div class="seg" role="group" aria-label="Syrup">
+            <button type="button" data-syrup="none" aria-pressed="true">None</button>
+            <button type="button" data-syrup="vanilla" aria-pressed="false">Vanilla</button>
+            <button type="button" data-syrup="caramel" aria-pressed="false">Caramel</button>
+            <button type="button" data-syrup="brown" aria-pressed="false">Brown sugar</button>
+          </div>
+        </div>
+
+        <label class="switch" for="ice">
+          <input type="checkbox" id="ice">
+          <span class="switch-track" aria-hidden="true"></span>
+          Over ice
+        </label>
+
+        <div class="ticket" aria-live="polite">
+          <div class="ticket-top">
+            <p class="ticket-name" id="drink-name">Flat white</p>
+            <p class="ticket-price" id="drink-price">$4.80</p>
+          </div>
+          <dl class="ticket-stats">
+            <div><dt>Volume</dt><dd id="stat-vol">190 / 360 ml</dd></div>
+            <div><dt>Caffeine</dt><dd id="stat-caf">126 mg</dd></div>
+            <div><dt>Ratio</dt><dd id="stat-ratio">1 : 2.2</dd></div>
+          </dl>
+          <p class="warn" id="warn" hidden>The glass is full. Take something out to add more.</p>
+          <button type="button" class="btn btn-block" id="add-order">Add to order</button>
+          <p class="toast" id="toast" role="status"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROAST LAB -->
+  <section class="roast" id="roast">
+    <div class="roast-stage">
+      <canvas id="bean-canvas" aria-label="3D coffee beans that change colour with roast temperature. Drag to turn the large bean."></canvas>
+      <p class="crack" id="crack" aria-hidden="true"></p>
+    </div>
+    <div class="roast-copy">
+      <p class="eyebrow">Roast lab</p>
+      <h2>From green seed to second crack.</h2>
+      <p>Drag the temperature and watch a bean roast. Every Tuesday we take our house blend to about 214&nbsp;°C, just before the oils come out.</p>
+
+      <div class="thermo">
+        <div class="thermo-read">
+          <span class="temp" id="temp-c">150 °C</span>
+          <span class="temp-f" id="temp-f">302 °F</span>
+          <span class="temp-t" id="temp-t">0:00 in the drum</span>
+        </div>
+        <label class="sr" for="roast-temp">Roast temperature in degrees Celsius</label>
+        <input type="range" id="roast-temp" min="150" max="240" step="1" value="150">
+        <div class="ticks" aria-hidden="true">
+          <span style="--at:51.1%">1st crack<br>196°</span>
+          <span style="--at:71.1%" class="house">House<br>214°</span>
+          <span style="--at:82.2%">2nd crack<br>224°</span>
+        </div>
+      </div>
+
+      <div class="stage-card">
+        <p class="stage-name" id="stage-name">Drying</p>
+        <p class="stage-notes" id="stage-notes">Grassy and hay-like. The bean is still green, dense and full of water.</p>
+      </div>
+      <button type="button" class="btn btn-ghost" id="roast-play">Run a full roast</button>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section class="menu" id="menu">
+    <div class="section-head">
+      <p class="eyebrow">Menu</p>
+      <h2>Short list, made well.</h2>
+    </div>
+    <div class="menu-cols">
+      <div class="menu-col">
+        <h3>Espresso bar</h3>
+        <ul>
+          <li><span>Espresso <small>Moth Blend, double</small></span><b>$3.20</b></li>
+          <li><span>Cortado <small>60 ml milk</small></span><b>$4.20</b></li>
+          <li><span>Flat white <small>Whole or oat</small></span><b>$4.80</b></li>
+          <li><span>Latte <small>Hot or iced</small></span><b>$5.20</b></li>
+          <li><span>Cappuccino <small>Dry foam, cocoa dust</small></span><b>$4.90</b></li>
+          <li><span>Midnight mocha <small>70% dark chocolate</small></span><b>$5.80</b></li>
+        </ul>
+      </div>
+      <div class="menu-col">
+        <h3>Slow bar</h3>
+        <ul>
+          <li><span>V60 pour-over <small>Ethiopia Guji, washed</small></span><b>$6.00</b></li>
+          <li><span>Chemex for two <small>Colombia Huila</small></span><b>$11.00</b></li>
+          <li><span>Cold brew <small>18-hour steep</small></span><b>$5.00</b></li>
+          <li><span>Moonlight tonic <small>Espresso, tonic, orange</small></span><b>$5.60</b></li>
+          <li><span>Decaf anything <small>Swiss Water process</small></span><b>+$0</b></li>
+        </ul>
+      </div>
+      <div class="menu-col">
+        <h3>Something to eat</h3>
+        <ul>
+          <li><span>Brown butter cookie <small>Sea salt</small></span><b>$3.50</b></li>
+          <li><span>Cardamom bun <small>Baked at 6 PM</small></span><b>$4.20</b></li>
+          <li><span>Burnt Basque cheesecake <small>Slice</small></span><b>$6.50</b></li>
+          <li><span>Toasted sourdough <small>Miso butter</small></span><b>$5.00</b></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- VISIT -->
+  <section class="visit" id="visit">
+    <div class="visit-copy">
+      <p class="eyebrow">Visit</p>
+      <h2>Follow the lamp on Lantern Row.</h2>
+      <p class="address">41 Lantern Row, Riverside<br>Two doors past the bookshop.</p>
+    </div>
+    <table class="hours">
+      <caption class="sr">Opening hours</caption>
+      <tbody>
+        <tr><th scope="row">Monday</th><td>Closed</td></tr>
+        <tr><th scope="row">Tue – Thu</th><td>5 PM – 1 AM</td></tr>
+        <tr><th scope="row">Fri – Sat</th><td>5 PM – 2 AM</td></tr>
+        <tr><th scope="row">Sunday</th><td>3 PM – 11 PM</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <p>Moth &amp; Moka is a fictional café made for a 3D website demo. The cup, glass and beans are all built in code with Three.js.</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

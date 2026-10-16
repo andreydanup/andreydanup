@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Higgsfield Kinetic Ad</title>
+<meta name="description" content="Iklan motion design 15 detik (9:16) untuk Higgsfield, dibuat sepenuhnya dengan kode Canvas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
+<style>
+  :root { --lime: #D1FE17; --bg: #050505; --fg: #f4f4f2; --muted: #8d8d88; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--fg); font-family: Inter, system-ui, sans-serif; }
+  body { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 16px; }
+  canvas { display: block; height: min(calc(100vh - 96px), 1920px); max-width: calc(100vw - 32px); aspect-ratio: 9 / 16; border-radius: 14px; background: #000; box-shadow: 0 30px 80px rgba(0,0,0,.6); }
+  .bar { display: flex; align-items: center; gap: 12px; width: min(100%, 520px); }
+  button { appearance: none; border: 0; border-radius: 999px; background: var(--lime); color: #151314; font: 700 14px Inter, sans-serif; padding: 10px 18px; cursor: pointer; min-width: 92px; }
+  input[type=range] { flex: 1; accent-color: var(--lime); }
+  output { font: 500 13px ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--muted); min-width: 64px; text-align: right; }
+  body.render { padding: 0; gap: 0; }
+  body.render canvas { height: auto; max-width: none; width: 1080px; border-radius: 0; box-shadow: none; }
+  body.render .bar { display: none; }
+</style>
+</head>
+<body>
+<canvas id="stage" width="1080" height="1920" aria-label="Iklan Higgsfield 15 detik"></canvas>
+<div class="bar">
+  <button id="play" type="button">Play</button>
+  <input id="scrub" type="range" min="0" max="15" step="0.001" value="0" aria-label="Posisi waktu">
+  <output id="time">0.00 s</output>
+</div>
+<audio id="music" src="soundtrack.wav" preload="auto"></audio>
+<script src="logo-geom.js"></script>
+<script src="motion.js"></script>
+<script>
+(async function () {
+  const canvas = document.getElementById('stage');
+  const ctx = canvas.getContext('2d');
+  const rendering = new URLSearchParams(location.search).has('render');
+  if (rendering) document.body.classList.add('render');
+  await HF.init();
+
+  // Hooks for render.cjs (offline export).
+  window.HF_FRAME = t => { HF.render(ctx, t); return canvas.toDataURL('image/png').slice('data:image/png;base64,'.length); };
+  window.HF_READY = true;
+  if (rendering) return;
+
+  const play = document.getElementById('play'), scrub = document.getElementById('scrub'), out = document.getElementById('time');
+  const music = document.getElementById('music');
+  let playing = false, t = 0, last = 0, useAudio = false;
+  music.addEventListener('canplaythrough', () => { useAudio = true; }, { once: true });
+
+  function draw() { HF.render(ctx, t); scrub.value = t; out.textContent = t.toFixed(2) + ' s'; }
+  function tick(now) {
+    if (!playing) return;
+    if (useAudio && !music.paused) t = music.currentTime;
+    else t += (now - last) / 1000;
+    last = now;
+    if (t >= HF.DURATION) { t = 0; if (useAudio) { music.currentTime = 0; music.play().catch(() => {}); } }
+    draw();
+    requestAnimationFrame(tick);
+  }
+  function setPlaying(on) {
+    playing = on;
+    play.textContent = on ? 'Pause' : 'Play';
+    if (on) {
+      if (useAudio) { music.currentTime = t; music.play().catch(() => { useAudio = false; }); }
+      last = performance.now();
+      requestAnimationFrame(tick);
+    } else music.pause();
+  }
+  play.addEventListener('click', () => setPlaying(!playing));
+  scrub.addEventListener('input', () => { t = +scrub.value; if (useAudio) music.currentTime = t; draw(); });
+  document.addEventListener('keydown', e => { if (e.code === 'Space') { e.preventDefault(); setPlaying(!playing); } });
+  draw();
+})();
+</script>
+</body>
+</html>

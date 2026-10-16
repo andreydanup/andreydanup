@@ -1,10 +1,11 @@
 # Situs 3D interaktif
 
-Repo ini berisi dua situs:
+Repo ini berisi beberapa proyek:
 
 - **VESPER H1** (root): landing page produk headphone fiktif, dijelaskan di bawah.
 - **[`apple-music/`](apple-music/)**: konsep tidak resmi bergaya Apple Music dengan Cover Flow 3D, Spatial Audio interaktif, dan spektrogram lossless.
 - **[`cafe/`](cafe/)**: Moth & Moka, a fictional late-night café with a spinnable 3D latte, a layer-by-layer drink builder and a roast lab (English).
+- **[`higgsfield-ad/`](higgsfield-ad/)**: konsep iklan tidak resmi untuk Higgsfield, video motion design 15 detik (9:16) yang dibuat sepenuhnya dengan kode Canvas, termasuk musiknya.
 
 ## VESPER H1: situs produk 3D
 
